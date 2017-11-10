@@ -20,6 +20,7 @@
                     <li><a href="AddAMovie.aspx">Add a film</a></li>
                     <li><a href="showfilms.aspx">Show films</a></li>
                     <li><a href="Register.aspx">Register</a></li>
+                    <li><a href="Login.aspx">Login</a></li>
                     <li><a href="contactForm.aspx">Contact Us</a></li>
                 </ul>
 

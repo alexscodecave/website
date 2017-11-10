@@ -7,7 +7,8 @@ using System.Web.UI.WebControls;
 using System.Security.Cryptography;
 using System.Text;
 using System.Data.SqlClient;
-using System.Web.Configuration;
+using System.Configuration;
+using System.Net.Mail;
 
 namespace WebApplication1
 {
@@ -18,42 +19,71 @@ namespace WebApplication1
 
         }
 
-
-
-        static string Encrypt(string value)
-        {
-            using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
-            {
-                UTF8Encoding utf8 = new UTF8Encoding();
-                byte[] data = md5.ComputeHash(utf8.GetBytes(value));
-                return Convert.ToBase64String(data);
-            }
-        }
-
+       
+        
+        
         private void SignUpUser()
         {
-            string connectionString = "Data Source=DESKTOP-MI79Q6G\\SQLEXPRESS;Initial Catalog=horrornovies;Integrated Security=True";
+            
+            
+        }
 
-
+        private void sendEmail()
+        {
+            MailMessage mail = new MailMessage("test@gmail.com", txtBoxEmail.Text, "test subject", "test body");
+            SmtpClient client = new SmtpClient();
+            client.Port = 587;
+            client.EnableSsl = true;
+            client.Send(mail);
+            lblPasswordValidation.Text = "An email has been sent to your email address to confirm your account!";
+            
         }
 
 
         private void insertIntoDatabase()
         {
-            string connectionString = "Data Source=DESKTOP-MI79Q6G\\SQLEXPRESS;Initial Catalog=horrornovies;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             //reference connection string from specific file
             using (SqlConnection con = new SqlConnection(connectionString))
             {
+
+                SqlCommand selectCommand = new SqlCommand();
+                //sql command to check 
+                selectCommand.CommandText = "SELECT 1 from tblUsers WHERE email=@email";
+                selectCommand.Parameters.AddWithValue("@email", txtBoxEmail.Text);
+                selectCommand.Connection = con;
+
                 //open connection
                 con.Open();
+                SqlDataReader sqlDataReader = selectCommand.ExecuteReader();
 
-                using (SqlCommand sqlCmd = new SqlCommand("INSERT INTO tblUsers values(@email,@password)", con))
+                //need to check if email already exists
+                if (sqlDataReader.HasRows)
                 {
-                    sqlCmd.Parameters.AddWithValue("email", txtBoxEmail.Text);
-                    sqlCmd.Parameters.AddWithValue("password", txtBoxPassword.Text);
-                    sqlCmd.ExecuteNonQuery();
-                    con.Close();
+                    //if email exists give user an indication by setting the text of the label
+                    lblEmailAddressValidation.Text = "Sorry but that email alreay exists";
+                    //close the sql data reader
+                    sqlDataReader.Close();
                 }
+
+                else //if email does not exist in database
+                {
+                    if (sqlDataReader.IsClosed) //if sqlDataReader is closed
+                    {
+                        //perform a using statement to dispose of the command, then insert the values into the database
+                        //RESEARCH needed for encrpytion and hashing password
+                        using (SqlCommand sqlCmd = new SqlCommand("INSERT INTO tblUsers values(@email,@password)", con))
+                        {
+                            sqlCmd.Parameters.AddWithValue("email", txtBoxEmail.Text);
+                            sqlCmd.Parameters.AddWithValue("password", txtBoxPassword.Text);
+                            sqlCmd.ExecuteNonQuery();
+
+                            con.Close();
+                        }
+                    }
+                }
+
+
             }
         }
 
@@ -73,12 +103,13 @@ namespace WebApplication1
                 if (txtBoxPassword.Text == txtBoxRepeatPassword.Text)
                 {
                     insertIntoDatabase();
+                    
                 }
                 else
                 {
                     lblPasswordAgainValidation.Text = "Please ensure your passwords match";
                 }
-                
+
             }
 
         }

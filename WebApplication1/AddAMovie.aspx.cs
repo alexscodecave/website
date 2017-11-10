@@ -24,15 +24,16 @@ namespace WebApplication1
             if (!IsPostBack)
             {
                 lblImgSuccess.Visible = false;
+                loadImages();
 
             }
-            loadImages();
+
         }
 
         private void loadImages()
         {
             //connection string
-            string connectionString = "Data Source=DESKTOP-MI79Q6G\\SQLEXPRESS;Initial Catalog=horrornovies;Integrated Security=True";
+            string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             //Create sqlconnection with the connection string as the parameter
             using (SqlConnection con = new SqlConnection(connectionString))
             {
@@ -134,7 +135,7 @@ namespace WebApplication1
                     }
                 }
             }
-            
+
         }
 
         private void changeToRed(TextBox txtBoxContact, string toRed)
@@ -148,7 +149,7 @@ namespace WebApplication1
         private void changeToGreen(TextBox txtBoxContact, string toGreen)
         {
             //set the css class of the textbox equal to the string value of the second parameter
-            
+
             txtBoxContact.CssClass = toGreen;
         }
 
