@@ -1,0 +1,138 @@
+﻿
+
+
+.slider {
+    padding-top: 15px;
+}
+
+    .slider img {
+        margin: 0 auto;
+        display: block;
+    }
+
+
+.center_div {
+    margin: 0 auto;
+    width: 80% /* value of your choice which suits your alignment */
+}
+
+.homepageChoice li{
+    list-style-type:none;
+    text-align:center;height:70px;
+}
+
+.registerForm {
+    width:100%;
+    margin:0 auto;
+}
+
+.pageCenter{
+    margin-left:auto;
+    margin-right:auto;
+    max-width:700px;
+    float:none;
+}
+
+.homeFooter {
+    position: fixed;
+    left: -1px;
+    height: 30px;
+    bottom: 117px;
+    width: 100%;
+    background-color: dimgrey;
+    color: white;
+    text-align: center;
+}
+
+.mGrid {
+    padding-top: 15px;
+    width: 100%;
+    background-color: #fff;
+    min-width: 80%;
+}
+
+.header{
+    background-color:#646464;
+    font-family:Arial;
+    color:white;
+    border:none 0px transparent;
+    height:25px;
+    text-align:center;
+    font-size:16px;
+}
+
+.pager{
+    background-color:#646464;
+    font-family:Arial;
+    color:white;
+    height:30px;
+    text-align:left;
+}
+
+.mydatagrid td{
+    padding:5px;
+}
+
+.mydatagrid th{
+    padding:5px;
+}
+
+.rows{
+    background-color:#fff;
+    font-family:Arial;
+    font-size:14px;
+    color:#000;
+    min-height:25px;
+    text-align:left;
+    border: none 0px transparent;
+}
+
+.mGrid td{
+    padding:2px;
+    border:solid 1px #c1c1c1;
+    color:#717171;
+}
+
+
+.mGrid .pgr table {
+    margin: 5px 0;
+}
+
+
+
+/*
+    Editing CSS of div containing images
+*/
+/*Footer*/
+footer {
+    display: block;
+}
+
+
+.changeToGreen {
+    border-color: limegreen;
+}
+
+.changeToRed {
+    border-color: red;
+}
+
+.borderHeading {
+    background-color: lightblue;
+}
+
+    .borderHeading h3 {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+.borderHeadingLink {
+    text-decoration: none;
+    color: black;
+}
+
+
+.tblContactForm{
+    margin: 0 auto;
+    
+}
