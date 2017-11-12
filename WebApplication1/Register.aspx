@@ -10,13 +10,21 @@
 
     <script type="text/javascript">
 
+        
         function checkPassword() {
+            //var contains element which has an id of txtBoxPassword
             var passwordTextBox = document.getElementById("txtBoxPassword");
+            //password is equal to the passwordTextBox value
             var password = passwordTextBox.value;
-            var specialCharacters = "!£$%^&*_@#~?";
-            var passwordScore = 0;
+            //var characters is equal to special characters
+            var specialCharacters = "!£$%^&*.,_@#~?";
 
+            var passwordScore = 0;
+            //if i is less than the length of the value entered by the user
             for (var i = 0; i < password.length; i++) {
+                //if indexOf (which will be a number) special character which is evaluating the value entered by the user
+                //index of returns the position of the first occurence of a specific value in a string
+                //is greater than -1 i.e. if a special character is present add 20 to the password score
                 if (specialCharacters.indexOf(password.charAt(i)) > - 1) {
                     passwordScore += 20;
                 }
@@ -57,7 +65,7 @@
                 backgroundColor = "red";
             }
             document.getElementById("lblPasswordValidation").innerHTML = strength;
-            
+
             passwordTextBox.style.backgroundColor = backgroundColor;
         }
 
@@ -81,34 +89,38 @@
 
             </div>
         </nav>
-        <div class="pageContainer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <div class="form-group">
+                        <h2>Please Register</h2>
+                        <asp:Label runat="server" for="email">Email address:</asp:Label>
+                        <asp:TextBox runat="server" CssClass="form-control text-center" ID="txtBoxEmail" TextMode="Email">
 
-            <div class="form-group">
-                <asp:Label runat="server" for="email">Email address:</asp:Label>
-                <asp:TextBox runat="server"  CssClass="form-control"  ID="txtBoxEmail" TextMode="Email">
+                        </asp:TextBox>
+                        <asp:Label runat="server" ID="lblEmailAddressValidation" />
+                    </div>
+                    <div class="form-group">
+                        <asp:Label runat="server" for="password">Password:</asp:Label>
+                        <asp:TextBox runat="server" onkeyup="checkPassword()" CssClass="form-control text-center" ID="txtBoxPassword" TextMode="Password">
 
-                </asp:TextBox>
+                        </asp:TextBox>
 
-                <asp:Label runat="server" ID="lblEmailAddressValidation" />
+                        <asp:Label runat="server" ID="lblPasswordValidation" />
+                    </div>
+                    <div class="form-group">
 
-                <asp:Label runat="server" for="password">Password:</asp:Label>
-                <asp:TextBox runat="server" onkeyup="checkPassword()" CssClass="form-control" ID="txtBoxPassword" TextMode="Password">
+                        <label for="repeatpassword">Repeat password</label>
+                        <asp:TextBox runat="server" CssClass="form-control text-center" ID="txtBoxRepeatPassword" TextMode="Password">
 
-                </asp:TextBox>
+                        </asp:TextBox>
 
-                <asp:Label runat="server" ID="lblPasswordValidation" />
+                        <asp:Label runat="server" ID="lblPasswordAgainValidation" />
+                    </div>
+                    <asp:Button runat="server" CssClass="btn btn-default" Text="Submit" ID="btnSignUp" OnClick="btnSignUp_Click1" />
 
-                <label for="repeatpassword">Repeat password</label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtBoxRepeatPassword" TextMode="Password">
-
-                </asp:TextBox>
-
-                <asp:Label runat="server" ID="lblPasswordAgainValidation" />
-
-                <asp:Button runat="server" CssClass="btn btn-default" Text="Submit" ID="btnSignUp" OnClick="btnSignUp_Click1" />
-
+                </div>
             </div>
-
         </div>
 
 

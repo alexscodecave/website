@@ -10,8 +10,6 @@
         display: block;
     }
 
-
-
 .center_div {
     margin: 0 auto;
     width: 80% /* value of your choice which suits your alignment */
@@ -26,6 +24,11 @@
 .registerForm {
     width: 100%;
     margin: 0 auto;
+}
+
+#btnStyle {
+    color: white;
+    background-color: #22A7F0;
 }
 
 .pageCenter {

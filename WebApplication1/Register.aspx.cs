@@ -48,26 +48,34 @@ namespace WebApplication1
                 {
                     lblPasswordAgainValidation.Text = "Apologies but that email is already taken";
                     
-                }
-                else
+                } 
+                else //if email is not taken
                 {
-                    lblEmailAddressValidation.Text = "Email address available";
-                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    if (txtBoxPassword.Text == txtBoxRepeatPassword.Text) //if password field is equal to repeat password field
                     {
-                        //open connection
-                        connection.Open();
-
-                        //using command release objects resources after completion
-                        using (SqlCommand cmd = new SqlCommand("INSERT INTO tblUsers values(@email, @password)", connection))
+                        lblEmailAddressValidation.Text = "Email address available";
+                        using (SqlConnection connection = new SqlConnection(connectionString))
                         {
-                            cmd.Parameters.AddWithValue("email", txtBoxEmail.Text);
-                            cmd.Parameters.AddWithValue("password", txtBoxPassword.Text);
-                            cmd.ExecuteNonQuery();
-                            connection.Close();
-                            lblPasswordAgainValidation.Text = "Registration successful!";
+                            //open connection
+                            connection.Open();
+
+                            //using command release objects resources after completion
+                            using (SqlCommand cmd = new SqlCommand("INSERT INTO tblUsers values(@email, @password)", connection))
+                            {
+                                cmd.Parameters.AddWithValue("email", txtBoxEmail.Text);
+                                cmd.Parameters.AddWithValue("password", txtBoxPassword.Text);
+                                cmd.ExecuteNonQuery();
+                                connection.Close();
+                                lblPasswordAgainValidation.Text = "Registration successful!";
+                            }
                         }
+                        lblEmailAddressValidation.Text = "";
                     }
-                    lblEmailAddressValidation.Text = "";
+                    else
+                    {
+                        lblPasswordAgainValidation.Text = "Passwords are different. Please ensure both password fields are the same values";
+                    }
+                    
                 }
 
                 conn.Close();

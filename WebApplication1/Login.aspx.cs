@@ -44,10 +44,7 @@ namespace WebApplication1
                     Response.Redirect("UserProfile.aspx");
                     
                 }
-                else
-                {
-                    lblLoginValidation.Text = "Either the username or password is incorrect";
-                }
+                
                 sqlConnection.Close();
             }
         }

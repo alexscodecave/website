@@ -16,7 +16,7 @@
                     <a class="navbar-brand" href="Home.aspx">Horror Movies</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li ><a href="Home.aspx">Home</a></li>
+                    <li><a href="Home.aspx">Home</a></li>
                     <li><a href="AddAMovie.aspx">Add a film</a></li>
                     <li><a href="showfilms.aspx">Show films</a></li>
                     <li><a href="Register.aspx">Register</a></li>
@@ -28,16 +28,20 @@
         </nav>
 
         <div class="container-fluid">
-            <div class="form-group">
-                <asp:Label runat="server">Email address:</asp:Label>
-                <asp:TextBox runat="server" class="form-control" ID="txtBoxLoginEmail"></asp:TextBox>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 text-center">
+                    <div class="form-group">
+                        <h2>Please Login</h2>
+                        <asp:Label runat="server">Email address:</asp:Label>
+                        <asp:TextBox runat="server" class="form-control text-center"  ID="txtBoxLoginEmail"></asp:TextBox>
+                    </div>
+                    <div class="form-group">
+                        <asp:Label runat="server">Password:</asp:Label>
+                        <asp:TextBox runat="server" class="form-control text-center" ID="txtBoxLoginPassword" TextMode="Password"></asp:TextBox>
+                    </div>
+                    <asp:Button runat="server" class="btn btn-default" ID="btnLogin" Text="Submit" OnClick="btnLogin_Click" />
+                </div>
             </div>
-            <div class="form-group">
-                <asp:Label runat="server">Password:</asp:Label>
-                <asp:TextBox runat="server" class="form-control" ID="txtBoxLoginPassword" TextMode="Password"></asp:TextBox>
-            </div>
-            <asp:Button runat="server" class="btn btn-default" ID="btnLogin" Text="Submit" OnClick="btnLogin_Click" />
-            <asp:Label runat="server" ID="lblLoginValidation" />
         </div>
 
         <div>
