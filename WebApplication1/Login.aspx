@@ -16,11 +16,11 @@
                     <a class="navbar-brand" href="Home.aspx">Horror Movies</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="Home.aspx">Home</a></li>
+                    <li ><a href="Home.aspx">Home</a></li>
                     <li><a href="AddAMovie.aspx">Add a film</a></li>
                     <li><a href="showfilms.aspx">Show films</a></li>
                     <li><a href="Register.aspx">Register</a></li>
-                    <li><a href="Login.aspx">Login</a></li>
+                    <li class="active"><a href="Login.aspx">Login</a></li>
                     <li><a href="contactForm.aspx">Contact Us</a></li>
                 </ul>
 
@@ -34,7 +34,7 @@
             </div>
             <div class="form-group">
                 <asp:Label runat="server">Password:</asp:Label>
-                <asp:TextBox runat="server" class="form-control" ID="txtBoxLoginPassword"></asp:TextBox>
+                <asp:TextBox runat="server" class="form-control" ID="txtBoxLoginPassword" TextMode="Password"></asp:TextBox>
             </div>
             <asp:Button runat="server" class="btn btn-default" ID="btnLogin" Text="Submit" OnClick="btnLogin_Click" />
             <asp:Label runat="server" ID="lblLoginValidation" />

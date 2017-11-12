@@ -6,7 +6,9 @@
 <head runat="server">
     <title>Add a movie</title>
 
-
+    <script type="text/javascript">
+        
+    </script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
     <link rel="stylesheet" href="main.css" />
 
@@ -19,8 +21,8 @@
                     <a class="navbar-brand" href="Home.aspx">Horror Movies</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="Home.aspx">Home</a></li>
-                    <li><a href="AddAMovie.aspx">Add a film</a></li>
+                    <li><a href="Home.aspx">Home</a></li>
+                    <li class="active"><a href="AddAMovie.aspx">Add a film</a></li>
                     <li><a href="showfilms.aspx">Show films</a></li>
                     <li><a href="Register.aspx">Register</a></li>
                     <li><a href="contactForm.aspx">Contact Us</a></li>
@@ -29,9 +31,9 @@
         </nav>
 
         <div>
-            <table class="auto-style1">
+            <table class="tblAddMovie">
                 <tr>
-                    <td>Movie Name :</td>
+                    <td style="margin-top:10px;">Movie Name :</td>
                     <td>
                         <asp:TextBox ID="txtMovieName" CssClass="form-control" runat="server">
 
@@ -47,7 +49,7 @@
 
                 <tr>
                     <td>Movie Age Rating :</td>
-                    <td>
+                    <td style="margin-top:10px;">
                         <asp:TextBox ID="txtBoxAgeRating" CssClass="form-control" runat="server">
 
                         </asp:TextBox></td>
@@ -111,7 +113,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="padding-bottom:10px;">
                         <asp:Button ID="btnAddMovie" runat="server" Text="Submit" CssClass="btn btn-default" OnClick="btnAddMovie_Click" />
                     </td>
                 </tr>
@@ -123,31 +125,22 @@
             AutoGenerateColumns="false" 
             GridLines="None"
             CssClass="mGrid"
-            PagerStyle-CssClass="pgr"
+            PagerStyle-CssClass="pgr" OnRowDataBound="gridViewDataBound"
             >
    
             <Columns>
-                <asp:BoundField DataField="name" HeaderText="Name" />
-                <asp:BoundField DataField="agerating" HeaderText="Rating" />
-                <asp:BoundField DataField="type" HeaderText="Type" />
-                <asp:BoundField DataField="Description" HeaderText="Description" />
-                <asp:TemplateField HeaderText="Image">
+                <asp:BoundField DataField="name" HeaderText="Name" HeaderStyle-BackColor="#FFB07F" />
+                <asp:BoundField DataField="agerating" HeaderText="Rating" HeaderStyle-BackColor="#FFB07F"  />
+                <asp:BoundField DataField="type" HeaderText="Type" HeaderStyle-BackColor="#FFB07F" />
+                <asp:BoundField DataField="Description" HeaderText="Description" HeaderStyle-BackColor="#FFB07F" />
+                <asp:TemplateField HeaderText="Image" HeaderStyle-BackColor="#FFB07F">
                     <ItemTemplate>
-                        <asp:Image ID="imgOne" runat="server" Height="100px" Width="100px" ImageUrl='<%#"data:Image/jpg;base64," + Convert.ToBase64String((byte[])Eval("image")) %>' />
+                        <asp:Image ID="imgOne" runat="server" Height="100px" Width="100px" ImageUrl='<%#"data:Image/jpg;base64," + Convert.ToBase64String((byte[])Eval("image")) %>'  />
 
                     </ItemTemplate>
                 </asp:TemplateField>
             </Columns>
         </asp:GridView>
-
-        <div class="homeFooter">
-                <div class="row">
-                    <div class="col-md-4">Alex </div>
-                    <div class="col-md-4">Copyright</div>
-                    <div class="col-md-4">2017</div>
-                </div>
-            </div>
-
 
     </form>
 </body>

@@ -132,6 +132,7 @@ namespace WebApplication1
                             connection.Close();
 
                         }
+                        
                     }
                 }
             }
@@ -164,6 +165,11 @@ namespace WebApplication1
             txtMovieName.CssClass = txtMovieName.CssClass.Replace("changeToRed", "");
             txtBoxAgeRating.CssClass = txtBoxAgeRating.CssClass.Replace("changeToRed", "");
             txtBoxMovieDescription.CssClass = txtBoxMovieDescription.CssClass.Replace("changeToRed", "");
+        }
+
+        protected void gridViewDataBound(object sender, GridViewRowEventArgs e)
+        {
+
         }
     }
 

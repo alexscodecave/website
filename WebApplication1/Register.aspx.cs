@@ -14,18 +14,10 @@ namespace WebApplication1
 {
     public partial class Register : System.Web.UI.Page
     {
+        string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
 
-        }
-
-       
-        
-        
-        private void SignUpUser()
-        {
-            
-            
         }
 
         private void sendEmail()
@@ -36,81 +28,66 @@ namespace WebApplication1
             client.EnableSsl = true;
             client.Send(mail);
             lblPasswordValidation.Text = "An email has been sent to your email address to confirm your account!";
-            
+
+        }
+
+        private void checkIfEmailExists()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                //open connection
+                conn.Open();
+                string sqlSelectQuery = "SELECT * FROM tblUsers WHERE email = @email";
+                SqlCommand sql = new SqlCommand(sqlSelectQuery, conn);
+                sql.Parameters.AddWithValue("@email", txtBoxEmail.Text);
+                //use datareader to equal the reading of the sql command entered into sql variable
+                SqlDataReader reader = sql.ExecuteReader();
+                //if there are rows, meaning there is an email in the database which is equal to what the user has entered
+                //into the textbox
+                if (reader.HasRows)
+                {
+                    lblPasswordAgainValidation.Text = "Apologies but that email is already taken";
+                    
+                }
+                else
+                {
+                    lblEmailAddressValidation.Text = "Email address available";
+                    using (SqlConnection connection = new SqlConnection(connectionString))
+                    {
+                        //open connection
+                        connection.Open();
+
+                        //using command release objects resources after completion
+                        using (SqlCommand cmd = new SqlCommand("INSERT INTO tblUsers values(@email, @password)", connection))
+                        {
+                            cmd.Parameters.AddWithValue("email", txtBoxEmail.Text);
+                            cmd.Parameters.AddWithValue("password", txtBoxPassword.Text);
+                            cmd.ExecuteNonQuery();
+                            connection.Close();
+                            lblPasswordAgainValidation.Text = "Registration successful!";
+                        }
+                    }
+                    lblEmailAddressValidation.Text = "";
+                }
+
+                conn.Close();
+
+
+            }
         }
 
 
         private void insertIntoDatabase()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
-            //reference connection string from specific file
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-
-                SqlCommand selectCommand = new SqlCommand();
-                //sql command to check 
-                selectCommand.CommandText = "SELECT 1 from tblUsers WHERE email=@email";
-                selectCommand.Parameters.AddWithValue("@email", txtBoxEmail.Text);
-                selectCommand.Connection = con;
-
-                //open connection
-                con.Open();
-                SqlDataReader sqlDataReader = selectCommand.ExecuteReader();
-
-                //need to check if email already exists
-                if (sqlDataReader.HasRows)
-                {
-                    //if email exists give user an indication by setting the text of the label
-                    lblEmailAddressValidation.Text = "Sorry but that email alreay exists";
-                    //close the sql data reader
-                    sqlDataReader.Close();
-                }
-
-                else //if email does not exist in database
-                {
-                    if (sqlDataReader.IsClosed) //if sqlDataReader is closed
-                    {
-                        //perform a using statement to dispose of the command, then insert the values into the database
-                        //RESEARCH needed for encrpytion and hashing password
-                        using (SqlCommand sqlCmd = new SqlCommand("INSERT INTO tblUsers values(@email,@password)", con))
-                        {
-                            sqlCmd.Parameters.AddWithValue("email", txtBoxEmail.Text);
-                            sqlCmd.Parameters.AddWithValue("password", txtBoxPassword.Text);
-                            sqlCmd.ExecuteNonQuery();
-
-                            con.Close();
-                        }
-                    }
-                }
 
 
-            }
+
         }
 
         protected void btnSignUp_Click1(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtBoxEmail.Text))
-            {
-                lblEmailAddressValidation.Text = "Please enter an email address";
-            }
-            if (!txtBoxEmail.Text.Contains("@"))
-            {
-                lblEmailAddressValidation.Text = "Please enter a valid email address with the @ symbol included";
-            }
+            checkIfEmailExists();
 
-            else
-            {
-                if (txtBoxPassword.Text == txtBoxRepeatPassword.Text)
-                {
-                    insertIntoDatabase();
-                    
-                }
-                else
-                {
-                    lblPasswordAgainValidation.Text = "Please ensure your passwords match";
-                }
-
-            }
 
         }
     }

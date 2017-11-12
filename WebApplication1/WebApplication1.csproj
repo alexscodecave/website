@@ -106,6 +106,7 @@
     <Content Include="main.css" />
     <Content Include="showfilms.aspx" />
     <Content Include="style.js" />
+    <Content Include="UserProfile.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,13 @@
     </Compile>
     <Compile Include="showfilms.aspx.designer.cs">
       <DependentUpon>showfilms.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UserProfile.aspx.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserProfile.aspx.designer.cs">
+      <DependentUpon>UserProfile.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <PropertyGroup>

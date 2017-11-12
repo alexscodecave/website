@@ -18,7 +18,7 @@ namespace WebApplication1
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-
+            checkDBCredentials();
         }
 
 
@@ -36,14 +36,20 @@ namespace WebApplication1
                 //open connection
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                if (sqlDataReader.HasRows)
+                if (sqlDataReader.Read())
                 {
-                    lblLoginValidation.Text = "";
+                    //create a session object equal to the email user entered into the textbox
+                    Session["user"] = txtBoxLoginEmail.Text;
+                    //redirect user to UserProfile page
+                    Response.Redirect("UserProfile.aspx");
+                    
                 }
                 else
                 {
                     lblLoginValidation.Text = "Either the username or password is incorrect";
                 }
+                sqlConnection.Close();
             }
         }
     }
+}
